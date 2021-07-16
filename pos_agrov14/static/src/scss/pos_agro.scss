@@ -1,0 +1,22 @@
+.pos .pos-content {
+    .price-tag {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    vertical-align: top;
+    color: white; //color de la letra
+    line-height: 13px;
+    background: #555555; // color del fonde de la caja
+    padding: 2px 5px;
+    border-radius: 14px; //el redondeo de la caja
+    }
+}
+.sale_margin {
+    top: 21px;
+    line-height: 15px;
+    right: 2px;
+    background: #CDDC39;
+    position: absolute;
+    border-radius: 10px;
+    padding: 0px 5px;
+}
