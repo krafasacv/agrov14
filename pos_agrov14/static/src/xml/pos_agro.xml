@@ -145,6 +145,28 @@
                 <span t-esc="env.pos.format_currency(receipt.change)" class="pos-receipt-right-align"/>
             </t>
         </xpath>
+            
+            
+         <!-- Estas lineas se agregan para que salgan los dos folios del ticket temporalmente hasta que se pueda obtener el folio de referencia que esta en el erp
+        -->
+         <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace">
+            <div class="pos-receipt-order-data">
+                <t t-if="env.pos.user.pos_user_type === 'cashier'">
+                    <div>
+                        <span>Documento Origen</span>
+                        <t t-esc="env.pos.get_order().get_pos_reference()"/>
+                    </div>
+                    <div>
+                        <span>Folio de Caja</span>
+                        <t t-esc="env.pos.get_order().name"/>
+                    </div>
+                 </t>
+                <t t-else="">
+                    <span>Documento para cobro</span>
+                    <t t-esc="env.pos.get_order().name"/>
+                </t>
+            </div>
+        </xpath>
         <!--
         <xpath expr="//t[@t-if='isTaxIncluded']" position="replace">
             <t t-if="env.pos.user.pos_user_type === 'cashier'">
