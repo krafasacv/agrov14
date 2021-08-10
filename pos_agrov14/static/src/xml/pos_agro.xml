@@ -116,6 +116,35 @@
 
 
     <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt"   t-inherit-mode="extension" owl="1">
+<!--
+        Coloca el nombre del cliente en la parte de arriba
+-->        
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+           
+               <t t-if='receipt.loyalty'>
+                   <br/>
+                   <div>
+                       <span>
+                           Cliente: 
+                           <t t-esc='receipt.loyalty.client' />
+                       </span>
+                   </div>
+               </t>    
+                <t t-else="">
+                    <br/>
+                    <div>
+                        <span> 
+                            Cliente: Mostrador
+                        </span>
+                    </div>
+                </t>           
+        </xpath>
+
+<!--
+        Quita el nombre del cliente en la parte de abajo
+-->
+        <xpath expr="//div[hasclass('loyalty')]/span/div[3]" position="replace">
+        </xpath> 
             
             
             
