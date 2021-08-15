@@ -191,6 +191,7 @@
                     <div>
                         <span>Folio de Caja</span>
                         <t t-esc="env.pos.get_order().name"/>
+                            <div><t t-esc="receipt.date.localestring" /></div>
                     </div>
                  </t>
                 <t t-else="">
