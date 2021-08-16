@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-
-
+    
+<t t-name="sClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit"    t-inherit-mode="extension" owl="1">
+     <xpath expr="//div[hasclass('client-details-left')]/div[6]" position="replace">
         
-        
+    </xpath>
+    
+    <xpath expr="//div[hasclass('client-details-right')]/div[4]" position="replace">
+        <div class="client-detail">
+            <span class="label">Cumpleaños</span>
+                <input class="detail vat" name="x_cumple" t-on-change="captureChange" t-att-value="props.partner.x_cumple || ''" placeholder="Día y mes de cumpleaños ejemplo 18 octubre > 18/10"/>
+        </div>
+    </xpath>
+    
+    <xpath expr="//div[hasclass('client-details-right')]/div[5]" position="replace">
+        <div class="client-detail">
+            <span class="label">RFC</span>
+            <input class="detail vat" name="vat" t-on-change="captureChange"
+                t-att-value="props.partner.vat || ''" placeholder="RFC ejemplo XAXX010101000, no colocar otro dato" />
+        </div>
+    </xpath>
+    
+</t>
+
         <t t-name="PosListPriceButton" owl="1">
             <t t-if="env.pos.user.pos_user_type == 'salesman'">
                 <span class="control-button" t-on-click="onClick">
@@ -31,6 +50,7 @@
 
 
 <t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+    
         <xpath expr="//div[hasclass('rightpane')]" position="replace">
              <div class="rightpane" t-if="!env.isMobile || mobile_pane === 'right'">
                  <t t-if="env.pos.user.pos_user_type === 'cashier'">
@@ -95,24 +115,31 @@
 
 
     <t t-name="OrderScreen" t-inherit="aspl_pos_order_sync_ee.OrderScreen"    t-inherit-mode="extension" owl="1">
+    
         <xpath expr="//div[hasclass('header-row')]/div[1]" position="replace">
             <div class="col start wide">Folio Orden</div>
         </xpath>
+        
         <xpath expr="//div[hasclass('header-row')]/div[2]" position="replace">
             <div class="col start wide">Folio Ticket</div>
         </xpath>
+        
         <xpath expr="//div[hasclass('header-row')]/div[4]" position="replace">
             <div class="col start">Fecha Ticket</div>
         </xpath>
+        
         <xpath expr="//div[hasclass('header-row')]/div[5]" position="replace">
             <div class="col start wide">Importe</div>
         </xpath>
+        
         <xpath expr="//div[hasclass('header-row')]/div[6]" position="replace">
             <div class="col start wide">Re-imprimir</div>
         </xpath>
+        
         <xpath expr="//div[hasclass('header-row')]/div[7]" position="replace">
              <div class="col start wide">Editar</div>
         </xpath>
+        
     </t>
 
 
@@ -147,9 +174,7 @@
 -->
         <xpath expr="//div[hasclass('loyalty')]/span/div[3]" position="replace">
         </xpath> 
-            
-            
-            
+                
         <xpath expr="//div[hasclass('pos-receipt-amount')]" position="after">
             <div style="text-align:center;">
                  <t t-if="env.pos.user.pos_user_type !== 'cashier'">
@@ -180,9 +205,9 @@
             </t>
         </xpath>
             
-            
          <!-- Estas lineas se agregan para que salgan los dos folios del ticket temporalmente hasta que se pueda obtener el folio de referencia que esta en el erp
         -->
+        
          <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace">
             <div class="pos-receipt-order-data">
                 <t t-if="env.pos.user.pos_user_type === 'cashier'">
@@ -193,7 +218,7 @@
                     <div>
                         <span>Folio de Caja</span>
                         <t t-esc="env.pos.get_order().name"/>
-                            <div><t t-esc="receipt.date.localestring" /></div>
+                        <div><t t-esc="receipt.date.localestring" /></div>
                     </div>
                  </t>
                 <t t-else="">
@@ -202,6 +227,7 @@
                 </t>
             </div>
         </xpath>
+        
         <!--
         <xpath expr="//t[@t-if='isTaxIncluded']" position="replace">
             <t t-if="env.pos.user.pos_user_type === 'cashier'">
@@ -384,10 +410,6 @@
                     </t>
                 </t>
         </xpath>
-
-
-
     </t>
-
 
 </templates>
