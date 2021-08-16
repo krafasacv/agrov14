@@ -4,7 +4,8 @@ from odoo import fields, models, _
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-
+    
+    x_cumple = fields.Char('cumple', store=True)
     residencia_fiscal = fields.Char(string=_('Residencia Fiscal'))
     registro_tributario = fields.Char(string=_('Registro tributario'))
     uso_cfdi = fields.Selection(
