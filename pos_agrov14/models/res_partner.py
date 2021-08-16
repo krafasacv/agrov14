@@ -5,7 +5,7 @@ class PriceListMin(models.Model):
     
     
     
-    x_cumple = fields.Char('cumple', store=True)
+    #x_cumple = fields.Char('cumple', store=True)
     
     x_metodo_pago = fields.Selection(
         [('PUE', 'PUE - Pago en una sola exhibición'), ('PPD', 'PPD - Pago en parcialidades o diferido'), ],
