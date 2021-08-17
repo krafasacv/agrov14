@@ -18,7 +18,7 @@ _logger = logging.getLogger(__name__)
 
 class NvPosInvoice(models.Model):
     _inherit = 'account.move'
-    x_monto_f = fields.Float('Monto de la factura', default='10000.00', store =True)
+    x_monto_f = fields.Float('Monto de la factura', default='0', store =True)
     x_order_ids = fields.One2many('pos.order', 'account_move', string='Ids de Ordenes Afectadas',
         copy=False, readonly=True)
     x_prueba = fields.Char('para pruebas')
@@ -147,3 +147,38 @@ class PosOrdertoInvoice(models.Model):
                 'x_order_ids': order_ids,
             }
         return(invoice_vals)
+    
+    
+#### Este procedimiento es para cuando se hace el cierre de caja el sistema genere los borradores de los tickets que se quedaron pendientes de #### timbrar
+
+class NvPosInvoice(models.Model):
+    _inherit = 'pos.session'
+    x_prueba = fields.Char('para pruebas')
+
+    def action_pos_order_corte_to_invoice(self):
+        ordenes = self.order_ids.filtered(lambda r: r.state == 'invoiced' or r.state == 'paid' and r.partner_id.vat)
+        self.x_prueba = ''
+        for rec in ordenes:
+            formadepago = ''
+            y = rec.action_pos_order_invoice()
+            paymentmethodid = sorted(rec.payment_ids, key=lambda pagos: pagos.amount, reverse=True)[0].payment_method_id.id
+            if paymentmethodid == 1:
+                formadepago = '01'
+            elif paymentmethodid == 2:
+                formadepago = '03'
+            elif paymentmethodid == 3:
+                formadepago = '04'
+            elif paymentmethodid == 4:
+                formadepago = '28'
+            elif paymentmethodid == 5:
+                formadepago = '03'
+            else:
+                formadepago = '99'
+            
+            recupdate = self.env['account.move'].search([('id','=',y['res_id'])])
+            recupdate.forma_pago = formadepago
+            recupdate.methodo_pago = 'PUE'
+            recupdate.uso_cfdi = rec.partner_id.uso_cfdi
+            recupdate.tipo_comprobante = 'I'
+            self.x_prueba += str(y['res_id'])
+        #return(invoice_vals)
