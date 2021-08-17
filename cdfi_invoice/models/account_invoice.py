@@ -126,7 +126,7 @@ class AccountMove(models.Model):
     selo_sat = fields.Char(string=_('Selo del SAT'))
     moneda = fields.Char(string=_('Moneda'))
     tipocambio = fields.Char(string=_('TipoCambio'))
-    folio = fields.Char(string=_('Folio'))
+    folio = fields.Char(string=_('Folio objetivo'))
     version = fields.Char(string=_('Version'))
     number_folio = fields.Char(string=_('Folio'), compute='_get_number_folio')
     amount_to_text = fields.Char('Amount to Text', compute='_get_amount_to_text',
@@ -252,7 +252,11 @@ class AccountMove(models.Model):
         naive_from = datetime.datetime.now() 
         local_dt_from = naive_from.replace(tzinfo=pytz.UTC).astimezone(local)
         date_from = local_dt_from.strftime ("%Y-%m-%d %H:%M:%S")
-
+#########
+        sequence_id = self.env['ir.sequence'].search([('code', '=', 'account.sequence.ff')])
+        sequence_pool = self.env['ir.sequence']
+        application_no = sequence_pool.sudo().get_id(sequence_id.id)
+#########        
         _logger.info('date_from %s', date_from)
         request_params = { 
                 'company': {
@@ -279,7 +283,8 @@ class AccountMove(models.Model):
                       'methodo_pago': self.methodo_pago,
                       'subtotal': self.amount_untaxed,
                       'total': self.amount_total,
-                      'folio': self.name.replace('INV','').replace('/',''),
+#########                    
+                      'folio': application_no,#self.name.replace('INV','').replace('/',''),
                       'serie_factura': self.journal_id.serie_diario or self.company_id.serie_factura,
                       'fecha_factura': date_from, #self.fecha_factura,
                       'decimales_cantidad': 6,
