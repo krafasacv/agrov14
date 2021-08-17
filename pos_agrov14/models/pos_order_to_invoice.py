@@ -182,11 +182,3 @@ class NvPosInvoice(models.Model):
             recupdate.tipo_comprobante = 'I'
             self.x_prueba += str(y['res_id'])
         #return(invoice_vals)    
-        
-class ResPartnerPOI(models.Model):
-    _inherit = 'res.partner'
-    
-    x_metodo_pago = fields.Selection(
-        [('PUE', 'PUE - Pago en una sola exhibición'), ('PPD', 'PPD - Pago en parcialidades o diferido'), ],
-        string='Método de pago')
-    
