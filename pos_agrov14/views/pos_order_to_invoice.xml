@@ -13,6 +13,28 @@ action = records.PostoInvoice()
 action = records.EntryReversal()
             </field>
         </record>
+    <record model="ir.actions.server" id="action_pos_order_corte_to_invoice">
+            <field name="name">Validar Ordenes pendientes de Facturar</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="state">code</field>
+            <field name="binding_view_types">form</field>
+            <field name="code">
+action = records.action_pos_order_corte_to_invoice()
+            </field>
+        </record>
+    <record model="ir.actions.server" id="action_many_nv_one_invoice">
+            <field name="name">Agrupar Notas de Venta a una Factura</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="state">code</field>
+            <field name="binding_view_types">form</field>
+            <field name="code">
+action = records.action_many_nv_one_invoice()
+            </field>
+        </record>
 <!--
    <menuitem name="Your Menu Name" id="menu_any_name" action="server_action_pos_order_to_invoice"/>
  -->
