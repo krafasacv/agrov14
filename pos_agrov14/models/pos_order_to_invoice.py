@@ -155,8 +155,9 @@ class NvPosInvoice(models.Model):
     _inherit = 'pos.session'
     x_prueba = fields.Char('para pruebas')
 
-    def action_pos_order_corte_to_invoice(self):
-        ordenes = self.order_ids.filtered(lambda r: r.state == 'invoiced' or r.state == 'paid' and r.partner_id.vat)
+        def action_pos_order_corte_to_invoice(self):
+        ordenes = self.order_ids.filtered(lambda r: r.state == 'invoiced' or 
+                                          r.state == 'paid' and r.partner_id.vat and r.partner_id.x_factura_al_dia == True)
         self.x_prueba = ''
         for rec in ordenes:
             formadepago = ''
@@ -181,4 +182,4 @@ class NvPosInvoice(models.Model):
             recupdate.uso_cfdi = rec.partner_id.uso_cfdi
             recupdate.tipo_comprobante = 'I'
             self.x_prueba += str(y['res_id'])
-        #return(invoice_vals)    
+            recupdate.action_cfdi_generate()
