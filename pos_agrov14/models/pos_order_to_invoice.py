@@ -182,4 +182,4 @@ class NvPosInvoice(models.Model):
             recupdate.uso_cfdi = rec.partner_id.uso_cfdi
             recupdate.tipo_comprobante = 'I'
             self.x_prueba += str(y['res_id'])
-            recupdate.action_cfdi_generate()
+            #recupdate.action_cfdi_generate()
