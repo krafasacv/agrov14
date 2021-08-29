@@ -29,7 +29,8 @@ class NvPosInvoice(models.Model):
         ref = ''
         refa = ''
         cia = self.company_id.id
-        self_ids = self.filtered(lambda r: r.payment_state in ['in_payment','paid']).ids
+        self_ids = self.filtered(lambda r: r.payment_state in ['in_payment','paid'] and r.x_nv_destino == False).ids 
+        #Se agrega r.x_nv_destino para evitar que se vuelvan a agrupar
         self.x_nv_origen = self_ids
         
         ######
@@ -48,7 +49,8 @@ class NvPosInvoice(models.Model):
           ######    
             
             
-        lineas = self.env['account.move.line'].search([('move_id', 'in', self_ids)]).filtered(lambda r: r.product_id)
+        lineas = self.env['account.move.line'].search([('move_id', 'in', self_ids)]).filtered(lambda r: r.product_id and r.is_anglo_saxon_line != True) 
+        # se agrega r.is_anglo_saxon_line, para evitar que el sistema mande partidas como el costo de venta
         list_lin = []
         nv_ids = []
         for linea in lineas.sorted(key=lambda r: r.move_id.id):
