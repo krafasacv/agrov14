@@ -255,8 +255,8 @@ class AccountMove(models.Model):
 #########
 	#sequence_id = self.env['ir.sequence'].search(['&',('company_id.id','=',self.company_id.id),('code', '=', 'account.sequence.ff')])
 	#esta es la linea original
-        #sequence_id = self.env['ir.sequence'].search([('code', '=', 'account.sequence.ff')])
-	sequence_id = self.env['ir.sequence'].search([('code', '=', 'account.sequence.ff')])
+        sequence_id = self.env['ir.sequence'].search([('code', '=', 'account.sequence.ff')])
+	#sequence_id = self.env['ir.sequence'].search([('code', '=', 'account.sequence.ff')])
         sequence_pool = self.env['ir.sequence']
         application_no = sequence_pool.sudo().get_id(sequence_id.id)
 #########        
