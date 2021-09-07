@@ -39,7 +39,7 @@ class NvPosInvoice(models.Model):
             order_id.state = 'invoiced'
 
 
-    def EntryReversal(self, default_values_list=None, cancel=True):
+    def PostoInvoiceReversal(self, default_values_list=None, cancel=True):
         ''' Reverse a recordset of account.move.
         If cancel parameter is true, the reconcilable or liquidity lines
         of each original move will be reconciled with its reverse's.
