@@ -63,7 +63,8 @@ class NvPosInvoice(models.Model):
                 'move_type': 'entry',
                 'reversed_entry_id': move.id,
                 'journal_id': 3,
-                'ref': 'reverso del asiento ' + move.name
+                'ref': 'reverso del asiento ' + move.name,
+                'invoice_date': move.invoice_date
             })
             move_vals_list.append(move.with_context(move_reverse_cancel=cancel)._reverse_move_vals(default_values, cancel=cancel))
 
