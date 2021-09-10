@@ -135,12 +135,12 @@
     </t>
 <!--
    Esta parte elimina el boton de pedidos para que NO puedan reimprimir y NO puedan modificar los pedidos
--->
+
     <t t-name="OrderScreenButton" t-inherit="aspl_pos_order_sync_ee.OrderScreenButton"    t-inherit-mode="extension" owl="1">
         <xpath expr="//span" position="replace">
         </xpath>
     </t>
-
+-->
     <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt"   t-inherit-mode="extension" owl="1">
 <!--
         Coloca el nombre del cliente en la parte de arriba
