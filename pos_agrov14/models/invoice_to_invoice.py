@@ -113,6 +113,6 @@ class NvPosInvoice(models.Model):
 #aqui termina la asignación del folio unico para las facturas, hay que checar si se puede asignar al nombre del documento sin que afecte a la secuncia nativa de Odoo y checar si al timbrar toma este dato.
         
         
-        new.EntryReversal()
+        new.PostoInvoiceReversal()
         return(invoice_vals)    
                                 
