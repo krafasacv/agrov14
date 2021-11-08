@@ -183,7 +183,7 @@ Esta parte quita la posibilidad de que lo usuarios normales puedan modificar los
             
         <xpath expr="//div[hasclass('pos-receipt-amount')]" position="after">
             <div style="text-align:center;">
-                 <t t-if="env.pos.user.pos_user_type !== 'cashier'">
+                 <t t-if="env.pos.user.pos_user_type !== 'cashier' and receipt.company.name === 'AGROINDUSTRIAL DE CHILES Y SEMILLAS MORALES, S.A. DE C.V.'">
                     <span>
                         <br/>
                     *** S O L O *** P A R A *** P A G A R ***
@@ -230,6 +230,7 @@ Esta parte quita la posibilidad de que lo usuarios normales puedan modificar los
                 <t t-else="">
                     <span>Documento para cobro</span>
                     <t t-esc="env.pos.get_order().name"/>
+                        <div><t t-esc="receipt.date.localestring" /></div>
                 </t>
             </div>
         </xpath>
