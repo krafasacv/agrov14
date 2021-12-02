@@ -57,14 +57,27 @@ odoo.define('aspl_pos_order_sync_ee.ProductScreen', function (require) {
 							q = line.quantity
 							return true;
 						}
+                            if (line.quantity == 0){
+							x_price_min = price_exist[a].x_price_min;
+							c_min = price_exist[a].min_quantity;
+							h = pricelist.id
+							q = line.quantity
+							return true;
+                        }
 					})
 
 
                         if (order_line != undefined){
-                            await this.showPopup('ErrorPopup', {title: this.env._t('El precio del producto es menor que el permitido'),
+                            if(q == 0){
+                                await this.showPopup('ErrorPopup', {title: this.env._t('Cantidad igual a Cero'),
+                                                                body: this.env._t('La cantidad no puede ser igual a cero en  ' + order_line.get_full_product_name() ),})
+                            }
+                            else{
+                                await this.showPopup('ErrorPopup', {title: this.env._t('El precio del producto es menor que el permitido'),
                                                                 body: this.env._t('El precio del producto ' + order_line.get_full_product_name() +
-                                                                ' es menor del precio mínimo ' + x_price_min + ' para ' + c_min ),})
-
+                                                                ' es menor del precio mínimo ' + x_price_min + ' para ' + c_min + 'cantidad' + q ),})
+                                
+                            }
                         }
                        else{
 
