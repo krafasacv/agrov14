@@ -27,7 +27,7 @@ class NvPosInvoice(models.Model):
         fi = datetime.combine(self.invoice_date, datetime.min.time()) + timedelta(hours=5)
         ff = fi + timedelta(hours=23)
         x = ''
-        ordenes = self.env['pos.order'].search(['&',('date_order','>',fi),('date_order','<',ff)]).filtered(lambda r: r.state == 'done')
+        ordenes = self.env['pos.order'].search(['&',('date_order','>',fi),('date_order','<',ff)]).filtered(lambda r: r.state == 'done' and r.x_devuelto == False)
 
         if ordenes:
             x = ordenes.action_many_pos_order_invoice(self.x_monto_f)
@@ -43,7 +43,7 @@ class NvPosInvoice(models.Model):
         ff = fi + timedelta(hours=23)
         x = ''
         #se cambia esta linea para el tema del 11 y 12 de diciembre que por error borraron las facturas del mostrador
-        ordenes = self.env['pos.order'].search(['&',('date_order','>',fi),('date_order','<',ff)]).filtered(lambda r: not r.partner_id.vat)
+        ordenes = self.env['pos.order'].search(['&',('date_order','>',fi),('date_order','<',ff)]).filtered(lambda r: not r.partner_id.vat and r.x_devuelto == False)
         if ordenes:
             x = ordenes.action_many_pos_order_invoice(self.x_monto_f)
             self.update(x)
