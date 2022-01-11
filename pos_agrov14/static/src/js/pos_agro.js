@@ -56,3 +56,29 @@ odoo.define('pos_agro.custom', function (require) {
     });
     Registries.Component.add(PosListPriceButton);
 });
+
+odoo.define('pos_line_note.AddNoteButton', function(require) {
+    "use strict";
+
+    var models = require('point_of_sale.models');
+    const ProductScreen = require('point_of_sale.ProductScreen');
+    var core = require('web.core');
+    const { Gui } = require('point_of_sale.Gui');
+    const PosComponent = require('point_of_sale.PosComponent');
+    const Registries = require('point_of_sale.Registries');
+    var _t = core._t;
+    var _super_orderline = models.Orderline.prototype;
+    models.Orderline = models.Orderline.extend({
+         export_for_printing: function() {
+            var self = this;
+            var lines = _super_orderline.export_for_printing.call(this);
+            var new_attr = {
+                note_1: this.get_note(),
+            }
+            $.extend(lines, new_attr);
+            return lines;
+        },
+    });
+
+    return AddNoteButton1;
+});
