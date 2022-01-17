@@ -238,7 +238,39 @@ Esta parte quita la posibilidad de que lo usuarios normales puedan modificar los
                 <t t-else="">
                     <span>Documento para cobro</span>
                     <t t-esc="env.pos.get_order().name"/>
-                        <div><t t-esc="receipt.date.localestring" /></div>
+                    <div>
+                        <span>
+                        <t t-if="receipt.date.date &lt; 10">
+                            0<t t-esc="receipt.date.date"/>   
+                        </t>
+                        <t t-else="">
+                            <t t-esc="receipt.date.date"/>   
+                            </t>
+                            -
+                        <t t-if="receipt.date.month &lt; 10">
+                            0<t t-esc="receipt.date.month + 1"/>
+                            </t>
+                        <t t-else="">
+                            <t t-esc="receipt.date.month + 1"/>
+                            </t>
+                            -
+                             <t t-esc="receipt.date.year" />
+                            :
+                        <t t-if="receipt.date.hour &lt; 10">
+                            0<t t-esc="receipt.date.hour" />
+                            </t>
+                        <t t-else="">
+                            <t t-esc="receipt.date.hour" />
+                            </t>
+                            :
+                        <t t-if="receipt.date.minute &lt; 10">
+                            0<t t-esc="receipt.date.minute" />
+                            </t>
+                        <t t-else="">
+                            <t t-esc="receipt.date.minute" />
+                            </t>
+                        </span>
+                     </div>
                 </t>
             </div>
         </xpath>
