@@ -464,6 +464,10 @@ Esta parte quita la posibilidad de que lo usuarios normales puedan modificar los
 
 
     </t>
-
+    <t t-name="PrintBillButton" t-inherit="pos_restaurant.PrintBillButton"    t-inherit-mode="extension" owl="1">
+         <xpath expr="//span/span[2]" position="replace">
+                <span>Pre-Ticket</span>
+         </xpath>
+    </t>
 
 </templates>
