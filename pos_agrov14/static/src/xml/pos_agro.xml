@@ -404,6 +404,10 @@ Esta parte quita la posibilidad de que lo usuarios normales puedan modificar los
                                     <t t-esc="line.product_name" />
                                 </span>
                             </t>
+                            <t t-if="line.note_1 != false">
+                                <br/>
+                                <t t-esc="line.note_1" />
+                            </t>
                         </div>
                         <t t-if="line.display_discount_policy == 'without_discount' and line.price != line.price_lst">
                             <div class="pos-receipt-left-padding">
