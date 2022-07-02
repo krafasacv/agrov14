@@ -111,7 +111,7 @@ class PosOrdertoInvoice(models.Model):
         crm_team_id = self.crm_team_id.id
         cia = self.company_id.id
         
-        lineas = self.env['pos.order.line'].search([('order_id', 'in', self.ids)])
+        lineas = self.env['pos.order.line'].search(['&',('product_id.id','!=',1197),('order_id', 'in', self.ids)])
         list_lin = []
         order_ids = []
         monto_partidas = 0
